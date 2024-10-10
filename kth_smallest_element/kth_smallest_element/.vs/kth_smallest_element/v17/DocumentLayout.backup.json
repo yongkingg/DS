@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dydwn\\Desktop\\24_2_DS\\study\\kth_smallest_element\\kth_smallest_element\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{915463B3-5FA7-4D31-9C15-954A3B32B2EC}|kth_smallest_element\\kth_smallest_element.vcxproj|C:\\Users\\dydwn\\Desktop\\24_2_DS\\study\\kth_smallest_element\\kth_smallest_element\\kth_smallest_element\\kth_smallest_element.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{915463B3-5FA7-4D31-9C15-954A3B32B2EC}|kth_smallest_element\\kth_smallest_element.vcxproj|solutionrelative:kth_smallest_element\\kth_smallest_element.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "kth_smallest_element.cpp",
+              "DocumentMoniker": "C:\\Users\\dydwn\\Desktop\\24_2_DS\\study\\kth_smallest_element\\kth_smallest_element\\kth_smallest_element\\kth_smallest_element.cpp",
+              "RelativeDocumentMoniker": "kth_smallest_element\\kth_smallest_element.cpp",
+              "ToolTip": "C:\\Users\\dydwn\\Desktop\\24_2_DS\\study\\kth_smallest_element\\kth_smallest_element\\kth_smallest_element\\kth_smallest_element.cpp",
+              "RelativeToolTip": "kth_smallest_element\\kth_smallest_element.cpp",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-10T15:13:45.441Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
