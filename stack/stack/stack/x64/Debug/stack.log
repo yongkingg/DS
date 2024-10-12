@@ -1,0 +1,20 @@
+﻿  stack.cpp
+C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(28,23): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
+      C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(28,23):
+      템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
+          C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(24,7):
+          클래스 템플릿 'Stack'을(를) 컴파일하는 동안
+  
+C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(30,13): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
+C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(40,23): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
+      C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(40,23):
+      템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
+          C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(34,7):
+          클래스 템플릿 'ArrayStack'을(를) 컴파일하는 동안
+  
+C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(41,24): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
+C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(42,13): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
+C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(54,37): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
+C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(60,38): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
+C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\stack\stack.cpp(66,27): warning C4290: 함수가 __declspec(nothrow)가 아님을 나타내려는 경우를 제외하고 C++ 예외 사양은 무시됩니다.
+  stack.vcxproj -> C:\Users\dydwn\Desktop\24_2_DS\study\stack\stack\x64\Debug\stack.exe

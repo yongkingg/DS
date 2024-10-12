@@ -23,6 +23,7 @@ public:
 	const string& get(int index) const;
 	void addFront(const string& e);
 	void removeFront();
+	void removeTail();
 	void removeNode(int index);
 	void insertNode(const string& e, int index);
 	void addTail(const string& e);
@@ -30,11 +31,10 @@ public:
 };
 
 
-StringLinkedList::StringLinkedList() : head(NULL) {}
+StringLinkedList::StringLinkedList() : head(NULL), size(0) {}
 StringLinkedList::~StringLinkedList() {
 	while (!empty()) { // node 전체가 비워질때까지 반복
-		removeFront();
-	}
+		removeFront();	}
 	size = 0;
 }
 
@@ -74,6 +74,23 @@ void StringLinkedList::removeFront() {
 	delete old;
 	size--;
 }
+
+void StringLinkedList::removeTail() {
+	if (size == 1) {  // 리스트에 노드가 하나만 남은 경우
+		removeFront();
+		return;
+	}
+
+	StringNode* cur = head;
+	for (int i = 1; i < size - 1; i++) {
+		cur = cur->next;
+	}
+	StringNode* old = cur->next;
+	cur->next = NULL;
+	delete old;
+	size--;
+}
+
 
 void StringLinkedList::removeNode(int index) {
 	if (index == 1) {  // 첫 번째 노드를 삭제하는 경우
@@ -134,5 +151,8 @@ int main() {
 	singleLinkedList.printAll();
 	singleLinkedList.addTail("안녕히가세요");
 	singleLinkedList.printAll();
+	singleLinkedList.removeTail();
+	singleLinkedList.printAll();
+
 	return 0;
 }

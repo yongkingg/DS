@@ -1,0 +1,2 @@
+Nwd
+ERROR: Invalid input
