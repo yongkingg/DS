@@ -2,11 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <any>
-#include <sstream>
 
 using namespace std;
-
 
 class StringNode {
 private:
@@ -30,27 +27,8 @@ public:
     const string& front() const;
     void addFront(const string& e);
     void removeFront();
-
+    string get(int index);
 };
-
-typedef string Elem;
-class LinkedStack {
-private:
-    SLinkedList S;
-    int n;
-public:
-    LinkedStack();
-    int size() const;
-    bool empty() const;
-    const Elem& top() const;
-    void push(const Elem& e);
-    void pop();
-    void printAll();
-};
-
-LinkedStack::LinkedStack() : S(), n(0) {}
-int LinkedStack::size() const { return n; }
-bool LinkedStack::empty() const { return n == 0; }
 
 SLinkedList::SLinkedList() : top(NULL) {}
 SLinkedList::~SLinkedList() { while (!empty()) removeFront(); }
@@ -70,8 +48,44 @@ void SLinkedList::removeFront() {
     delete old;
 }
 
+string SLinkedList::get(int index) {
+    StringNode* curr = top;
+    for (int i = 1; i < index; i++) {
+        curr = curr->next;
+    }
+    return curr->body;
+}
+
+typedef string Elem;
+class LinkedStack {
+private:
+    SLinkedList S;
+    int n;
+public:
+    LinkedStack();
+    int size() const;
+    bool empty() const;
+    const Elem& top() const;
+    void push(const Elem& e);
+    void pop();
+    void printAll();
+    void clearAll();
+};
+
+LinkedStack::LinkedStack() : S(), n(0) {}
+int LinkedStack::size() const { return n; }
+bool LinkedStack::empty() const { return n == 0; }
+void LinkedStack::clearAll() {
+    while (n == 0) {
+        pop();
+    }
+}
+
 const Elem& LinkedStack::top() const {
-    if (!empty()) return S.front();
+    if (!empty()) {
+        return S.front();
+    }
+    throw runtime_error("Top of empty Stack");
 }
 
 void LinkedStack::push(const Elem& e) {
@@ -90,7 +104,7 @@ void LinkedStack::pop() {
 void LinkedStack::printAll() {
     StringNode* curr = S.top;
     while (curr != NULL) {
-        cout << curr->body << " ";
+        cout << curr->body << "";
         curr = curr->next;
     }
     cout << endl;
@@ -98,70 +112,60 @@ void LinkedStack::printAll() {
 
 class StringDecoder {
 private:
-    string enc;
-    string dec;
-    LinkedStack stack;
+    LinkedStack post_fix_stack;
+    LinkedStack cal_stack;
 public:
-    vector<string> getFile(string path);
-    vector<string> stringdecoder(vector<string> enc_list);
-    vector<string> split(istream& value);
+    vector<string> read(string path);
+    string repeatString(string value, string count);
     void infixToPostFix(string value);
-    void compare_contents(string get_enc, string get_dec);
-    bool isHexadecimal(char value);
+    string stringdecoder(string enc);
+    bool compare_contents(string dec, string solution);
 };
 
-vector<string> StringDecoder::split(istream& value) {
-        vector<string> result;
-        string line;
-    
-        while (getline(value, line)) {
+vector<string> StringDecoder::read(string fileName) {
+    ifstream file(fileName);
+
+    vector<string> result;
+    string line;
+
+    if (file.is_open()) {
+        while (getline(file, line)) {
             result.push_back(line);
         }
-    
-        return result;
-}
+        file.close();
+    }
 
-vector<string> StringDecoder::getFile(string fileName) {
-        string filePath = "PA02_test/" + fileName + ".txt";
-        ifstream file(filePath);
-    
-        return split(file);
+    return result;
 }
-
-//depth 변수를 도입하여 괄호의 깊이를 추적합니다.
-//currentValue를 사용하여 현재 처리 중인 문자열을 저장합니다.
-//여는 괄호{ 를 만나면 이전 currentValue를 tmpString에 추가하고 초기화합니다.
-//닫는 괄호 }를 만나면 현재 currentValue를 tmpString에 추가하고 초기화합니다.
-//일반 문자는 currentValue와 postFix에 모두 추가합니다.
 
 void StringDecoder::infixToPostFix(string value) {
     vector<string> tmpString;
     string currentValue;
-    int depth = 0;
+    int bracketCount = 0;
 
     for (int index = 0; index < value.length(); index++) {
         char word = value[index];
         if (word == '{') {
-            stack.push(string(1, word));
+            post_fix_stack.push(string(1, word));
             if (!currentValue.empty()) {
                 tmpString.push_back(currentValue);
                 currentValue.clear();
             }
-            depth++;
+            bracketCount++;
         }
         else if (word == '}') {
             if (!currentValue.empty()) {
                 tmpString.push_back(currentValue);
                 currentValue.clear();
             }
-            while (!stack.empty() && stack.top() != "{") {
-                stack.pop();
+            while (!post_fix_stack.empty() && post_fix_stack.top() != "{") {
+                post_fix_stack.pop();
             }
-            depth--;
-            if (depth == 0 && index != value.length() -1) {
-                while (!stack.empty()) {
-                    tmpString.push_back(stack.top());
-                    stack.pop();
+            bracketCount--;
+            if (bracketCount == 0 && index != value.length() - 1) {
+                while (!post_fix_stack.empty()) {
+                    tmpString.push_back(post_fix_stack.top());
+                    post_fix_stack.pop();
                 }
                 tmpString.push_back("+");
             }
@@ -171,52 +175,136 @@ void StringDecoder::infixToPostFix(string value) {
         }
     }
 
-    // 스택에 남은 모든 연산자를 후위 표기법에 추가
-    while (!stack.empty()) {
-        tmpString.push_back(stack.top());
-        stack.pop();
+    if (!currentValue.empty()) {
+        tmpString.push_back(currentValue);
     }
 
-    // 후위 표기법 변환 결과 stack에 저장
-    for (int i = tmpString.size()-1; i >= 0; i--) {
-        stack.push(tmpString[i]);
+    if (!post_fix_stack.empty()) {
+        post_fix_stack.clearAll();
+    }
+
+    for (int i = tmpString.size() - 1; i >= 0; i--) {
+        post_fix_stack.push(tmpString[i]);
     }
 }
-vector<string> StringDecoder::stringdecoder(vector<string> enc_list) {
-    for (int index = 0; index < enc_list.size(); index++) {
-        cout << enc_list[index] << endl;
-        infixToPostFix(enc_list[index]);
 
-        stack.printAll();
-        string first = stack.top(); stack.pop();
-        string second = stack.top(); stack.pop();
+string StringDecoder::repeatString(string value, string count) {
+    try {
+        string countValue = count;
+        string extraString;
+        string result;
 
-        cout << "first : " << first << endl;
-        cout << "second : " << second << endl;
-
-        while (stack.top() == "{") {
-            
+        if (value == "ERROR") {
+            return "ERROR";
+        }
+        else if (count.length() != 1) {
+            for (int index = 0; index < count.size() - 1; index++) {
+                extraString += count[index];
+            }
+            countValue = count[count.size() - 1];
         }
 
-        // 하나 계산 후 스택 초기화
-        while (!stack.empty()) {
-            cout << stack.top() << endl;
-            stack.pop();
+        result += extraString;
+        int decimalValue = stoi(countValue, nullptr, 16);
+        for (int i = 0; i < decimalValue; ++i) {
+            result += value;
         }
+        return result;
+    }
+    catch (const invalid_argument& e) {
+        return "ERROR";
+    }
+    catch (const out_of_range& e) {
+        return "ERROR";
+    }
+}
 
-        cout << endl;
+string StringDecoder::stringdecoder(string enc) {
+    vector<string> resultVector;
+    string result = "";
+
+    infixToPostFix(enc);
+
+    while (!post_fix_stack.empty()) {
+        string top = post_fix_stack.top();
+        if (top == "{") {
+            string left = cal_stack.top(); cal_stack.pop();
+            string right = cal_stack.top(); cal_stack.pop();
+            string resultString = repeatString(left, right);
+            cal_stack.push(resultString);
+            left.clear();
+            right.clear();
+            post_fix_stack.pop();
+        }
+        else if (top == "+") {
+            post_fix_stack.pop();
+        }
+        else {
+            cal_stack.push(top);
+            post_fix_stack.pop();
+        }
     }
 
-    return enc_list;
+    while (!cal_stack.empty()) {
+        resultVector.push_back(cal_stack.top());
+        cal_stack.pop();
+    }
+
+    for (int i = resultVector.size() - 1; i >= 0; i--) {
+        result += resultVector[i];
+    }
+
+    if (result.find("ERROR") != std::string::npos) {
+        result = "ERROR: Invalid input";
+    }
+
+    return result;
 }
+
+bool StringDecoder::compare_contents(string dec, string solution) {
+    LinkedStack* compareStack = new LinkedStack;
+    compareStack->push(dec);
+    compareStack->push(solution);
+
+    while (!compareStack->empty()) {
+        string first = compareStack->top(); compareStack->pop();
+        string second = compareStack->top(); compareStack->pop();
+        if (first != second) {
+            return false;
+        }
+    }
+
+    delete compareStack;
+    return true;
+}
+
 
 int main() {
     StringDecoder decoder;
     LinkedStack stack;
-    vector<string> enc = decoder.getFile("input.8");
-    vector<string> dec = decoder.stringdecoder(enc);
+
+    vector<string> encList;
+    vector<string> solutionList;
+
+    for (int index = 1; index < 51; index++) {
+        string inputFileName = "input." + to_string(index) + ".txt";
+        string outputFileName = "output." + to_string(index) + ".txt";
+        for (int j = 0; j < 2; j++) {
+            encList.push_back(decoder.read(inputFileName)[j]);
+            solutionList.push_back(decoder.read(outputFileName)[j]);
+        }
+    }
+
+    for (int index = 0; index < 100; index++) {
+        string dec = decoder.stringdecoder(encList[index]);
+        string solution = solutionList[index];
+        if (decoder.compare_contents(dec, solution) == true) {
+            cout << "matched" << endl;
+        }
+        else {
+            cout << "not matched" << endl;
+        }
+    }
 
     return 0;
 }
-
-

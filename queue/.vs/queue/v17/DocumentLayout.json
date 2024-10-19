@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dydwn\\Desktop\\24_2_DS\\study\\queue\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F1C169BD-EE87-42D1-A7F2-F91E9CFC8D82}|queue\\queue.vcxproj|C:\\Users\\dydwn\\Desktop\\24_2_DS\\study\\queue\\queue\\queue.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F1C169BD-EE87-42D1-A7F2-F91E9CFC8D82}|queue\\queue.vcxproj|solutionrelative:queue\\queue.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "queue.cpp",
+              "DocumentMoniker": "C:\\Users\\dydwn\\Desktop\\24_2_DS\\study\\queue\\queue\\queue.cpp",
+              "RelativeDocumentMoniker": "queue\\queue.cpp",
+              "ToolTip": "C:\\Users\\dydwn\\Desktop\\24_2_DS\\study\\queue\\queue\\queue.cpp",
+              "RelativeToolTip": "queue\\queue.cpp",
+              "ViewState": "AgIAABcAAAAAAAAAAAAuwGwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-19T08:43:52.219Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
